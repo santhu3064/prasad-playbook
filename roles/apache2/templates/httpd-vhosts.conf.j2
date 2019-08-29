@@ -1,0 +1,19 @@
+NameVirtualHost *:{{ http_port }}
+
+<VirtualHost *:{{ http_port }}>
+
+    ServerName {{ server_name }}
+    ServerAlias {{ " " if not server_alias.last }}
+
+    ProxyRequests off
+
+    <Proxy *>
+        Order deny,allow
+        Allow from all
+    </Proxy>
+
+    <Location />
+        ProxyPass http://localhost:{{ application_port }}/
+        ProxyPassReverse http://localhost:{{ application_port }}/
+    </Location>
+</VirtualHost>
