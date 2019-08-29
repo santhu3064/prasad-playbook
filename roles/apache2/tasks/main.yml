@@ -1,0 +1,31 @@
+---
+- name: Ensure required varaiblees are provided
+  assert:
+    that:
+      - http_port != ""
+      - application_port != ""
+      - application_port <= 65535
+      - apache_user != ""
+      - apache_group != ""
+      - apache_installation_directory != ""
+
+- name: Ensure apache installation directory exists
+  file:
+    path: {{ apache_installation_folder }}
+    state: directory
+    user: {{ apache_user }}
+    group: {{ apache_group }}
+
+- name: Install main httpd.conf file
+  template:
+    src: httpd.conf.j2
+    dest: {{ apache_installation_folder }}/httpd.conf
+    user: {{ apache_user }}
+    group: {{ apache_group }}
+
+- name: Install virtual host  file
+  template:
+    src: httpd-vhosts.conf.j2
+    dest: {{ apache_installation_folder }}/extras/httpd-vhosts.conf
+    user: {{ apache_user }}
+    group: {{ apache_group }}

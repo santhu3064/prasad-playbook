@@ -1,0 +1,14 @@
+---
+http_port: 80
+application_port: 1337
+apache_user: "root"
+apache_group: "root"
+apache_installation_directory: "/opt/apache"
+server_alias:
+   - "leodis.ac.uk"
+   - "leodis.co.uk"
+   - "www.leodis.co.uk"
+   - "leodis.net"
+   - "www.leodis.net"
+
+server_name: "www.leodis.co.uk"
